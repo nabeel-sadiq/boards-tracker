@@ -17,24 +17,11 @@
 
         <div id="settings" class="flex flex-col justify-center items-center gap-3 py-3">
             <div class="divider h-1"></div>
-            <div class="flex justify-between items-center gap-3 p-3 w-60">
-                <p>Theme:</p>
-                <label class="flex cursor-pointer gap-2">
-                    <span class="label-text">
-                        <i class="fa-solid fa-moon"></i>
-                    </span>
-                    <input type="checkbox" value="light" class="toggle theme-controller"/>
-                    <span class="label-text">
-                        <i class="fa-solid fa-sun"></i>
-                    </span>
-                </label>
-            </div>
-            <div class="divider h-1"></div>
             <form class="flex flex-col gap-4" method="post">
                 <select class="w-60 p-3" name="core">
-                    <option value="medical" selected={data.user.core == "medical"}>Pre-Medical</option>
-                    <option value="engineering" selected={data.user.core == "engineering"}>Pre-Engineering</option>
-                    <option value="ICS" selected={data.user.core == "ICS"}>ICS - Physics</option>
+                    <option value="medical" selected={data.user.core === "medical"}>Pre-Medical</option>
+                    <option value="engineering" selected={data.user.core === "engineering"}>Pre-Engineering</option>
+                    <option value="ICS" selected={data.user.core === "ICS"}>ICS - Physics</option>
                 </select>
                     <button class="btn btn-success" type="submit">Save</button>
             </form>

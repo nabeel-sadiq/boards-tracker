@@ -5,7 +5,10 @@
     let {data} = $props();
     let chapters = $state(data.chapters);
 
-    let selectedSubject = $state("Maths");
+    let selectedSubject = $state();
+    if (data.user.core === "medical") selectedSubject = "Biology";
+    if (data.user.core === "engineering" || data.user.core === "ICS") selectedSubject = "Maths";
+
     let showConfetti = $state(false);
 
     function filter() {
@@ -40,13 +43,25 @@
     <h1 class="text-2xl font-bold">Choose Subject</h1>
 
     <!-- Dropdown for subjects -->
-    <select class="select" bind:value={selectedSubject} onchange={filter}>
-        <option value="Maths">Maths</option>
-        <option value="Physics">Physics</option>
-        <option value="Computer">Computer</option>
-        <option value="Biology">Biology</option>
-        <option value="Chemistry">Chemistry</option>
-    </select>
+    {#if data.user.core === "medical"}
+        <select class="select" bind:value={selectedSubject} onchange={filter}>
+            <option value="Biology">Biology</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+        </select>
+    {:else if data.user.core === "engineering"}
+        <select class="select" bind:value={selectedSubject} onchange={filter}>
+            <option value="Maths">Maths</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+        </select>
+    {:else if data.user.core === "ICS"}
+        <select class="select" bind:value={selectedSubject} onchange={filter}>
+            <option value="Maths">Maths</option>
+            <option value="Physics">Physics</option>
+            <option value="Computer">Computer</option>
+        </select>
+    {/if}
 
     <div class="flex flex-wrap justify-start items-center gap-5">
         {#each chapters as {id, subject, chapter, status}, index}
