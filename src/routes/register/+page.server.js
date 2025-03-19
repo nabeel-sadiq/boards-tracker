@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import {db} from "$lib/server/db"
 import {Users} from '$lib/server/db/schema';
 import {eq} from 'drizzle-orm';
+import insertStandardData from "$lib/server/db/StandardData"
 
 export const load = async () => {
     // todo
@@ -27,15 +28,18 @@ const register = async ({request}) => {
         .from(Users)
         .where(eq(Users.username, username));
 
+
     if (user.length > 0) {
         return fail(400, {user: true});
     }
 
-    await db.insert(Users).values({
+    const [newUser] = await db.insert(Users).values({
         username,
         passwordHash: await bcrypt.hash(password, 10),
         userAuthToken: crypto.randomUUID(),
-    });
+    }).returning({id: Users.id});
+
+    insertStandardData(newUser.id)
 
     throw redirect(303, '/login');
 };
