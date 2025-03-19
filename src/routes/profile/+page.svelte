@@ -1,8 +1,31 @@
 <script>
-    const pfp = "https://beebom.com/wp-content/uploads/2025/01/jinwoo-solo-leveling.jpg"
+    import {circlePercentage} from "../state.svelte.js";
+
+    let pfp = $state("https://beebom.com/wp-content/uploads/2025/01/Sung-Jinwoo-when-he-was-an-E-Rank.jpg?w=1024&quality=75");
+    let rank = $state("E");
+
+    if (circlePercentage.value <= 20) {
+        rank = "E";
+        pfp = "https://beebom.com/wp-content/uploads/2025/01/Sung-Jinwoo-when-he-was-an-E-Rank.jpg?w=1024&quality=75"
+    } else if (circlePercentage.value <= 40) {
+        rank = "D";
+        pfp = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzfrEjrPY_TnMlfgNLg0-J8t5fb5Dnq4Ytug&s"
+    } else if (circlePercentage.value <= 60) {
+        rank = "C";
+        pfp = "https://avatarfiles.alphacoders.com/375/thumb-1920-375666.jpeg"
+    } else if (circlePercentage.value <= 80) {
+        rank = "B";
+        pfp = "https://beebom.com/wp-content/uploads/2025/01/jinwoo-solo-leveling.jpg?w=1250&quality=75"
+    } else if (circlePercentage.value <= 90) {
+        rank = "A";
+        pfp = "https://staticg.sportskeeda.com/editor/2024/01/a0d04-17063341419867-1920.jpg"
+    } else if (circlePercentage.value <= 99) {
+        rank = "S";
+    } else {
+        rank = "Jinwoo";
+    }
 
     let {data} = $props();
-
     let modal = $state();
 </script>
 
@@ -15,7 +38,7 @@
         </div>
 
         <h1 class="text-xl opacity-70">@{data.user.name}</h1>
-        <h1 class="text-3xl"><span class="text-accent font-bold">🗡️ S</span> - Rank</h1>
+        <h1 class="text-3xl"><span class="text-accent font-bold">🗡️ {rank}</span> - Rank</h1>
 
         <div id="settings" class="flex flex-col justify-center items-center gap-3 py-3">
             <div class="divider h-1"></div>
