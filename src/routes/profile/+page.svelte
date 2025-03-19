@@ -31,10 +31,10 @@
             </div>
             <div class="divider h-1"></div>
             <form class="flex flex-col gap-4" method="post">
-                <select class="w-60 p-3">
-                    <option selected={data.user.core == "medical"}>Pre-Medical</option>
-                    <option selected={data.user.core == "engineering"}>Pre-Engineering</option>
-                    <option selected={data.user.core == "ICS"}>ICS - Physics</option>
+                <select class="w-60 p-3" name="core">
+                    <option value="medical" selected={data.user.core == "medical"}>Pre-Medical</option>
+                    <option value="engineering" selected={data.user.core == "engineering"}>Pre-Engineering</option>
+                    <option value="ICS" selected={data.user.core == "ICS"}>ICS - Physics</option>
                 </select>
                     <button class="btn btn-success" type="submit">Save</button>
             </form>
