@@ -13,12 +13,13 @@ const register = async ({request}) => {
     const data = await request.formData();
     const username = data.get('username');
     const password = data.get('password');
+    const core = data.get('core');
 
     if (
         typeof username !== 'string' ||
         typeof password !== 'string' ||
         !username ||
-        !password
+        !password || !core
     ) {
         return fail(400, {invalid: true});
     }
@@ -37,6 +38,7 @@ const register = async ({request}) => {
         username,
         passwordHash: await bcrypt.hash(password, 10),
         userAuthToken: crypto.randomUUID(),
+        core: core,
     }).returning({id: Users.id});
 
     insertStandardData(newUser.id)

@@ -34,9 +34,15 @@
                             <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
                         </g>
                     </svg>
-                    <input type="password" required placeholder="Password" minlength="5" name="password" />
+                    <input type="password" required placeholder="Password" minlength="5" name="password"/>
                 </label>
             </div>
+
+            <select class="select" name="core">
+                <option value="medical">Pre-Medical</option>
+                <option value="engineering" selected>Pre-Engineering</option>
+                <option value="ICS">ICS-Physics</option>
+            </select>
 
             {#if form?.user}
                 <p class="error">Account already exists! Login <a href="/login">here</a></p>

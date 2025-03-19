@@ -30,17 +30,19 @@
                 </label>
             </div>
             <div class="divider h-1"></div>
-            <select class="w-60 p-3">
-                <option disabled selected>Subject Combination</option>
-                <option>Pre-Medical</option>
-                <option>Pre-Engineering</option>
-                <option>ICS - Physics</option>
-                <option>ICS - Stats</option>
-            </select>
+            <form class="flex flex-col gap-4" method="post">
+                <select class="w-60 p-3">
+                    <option selected={data.user.core == "medical"}>Pre-Medical</option>
+                    <option selected={data.user.core == "engineering"}>Pre-Engineering</option>
+                    <option selected={data.user.core == "ICS"}>ICS - Physics</option>
+                </select>
+                    <button class="btn btn-success" type="submit">Save</button>
+            </form>
             <div class="divider h-1"></div>
             <div class="flex justify-between items-center gap-2">
                 <form action="/logout" method="post">
-                    <button type="submit" class="btn btn-error"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+                    <button type="submit" class="btn btn-error"><i class="fa-solid fa-right-from-bracket"></i>Logout
+                    </button>
                 </form>
                 <button class="btn btn-error"><i class="fa-solid fa-trash"></i>Delete Account</button>
             </div>
