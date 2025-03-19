@@ -1,23 +1,83 @@
 <script>
+    import {enhance} from "$app/forms";
+    import {Confetti} from "svelte-confetti";
+
     let {data} = $props();
+    let chapters = $state(data.chapters);
+
+    let selectedSubject = $state("Maths");
+    let showConfetti = $state(false);
+
+    function filter() {
+        chapters = data.chapters.filter((chapter) => chapter.subject === selectedSubject);
+    }
+
+    filter();
+
+    function setupForm(form) {
+        enhance(form, ({data}) => {
+            console.log("Server response:", data);
+        });
+    }
+
+    function submitForm(event) {
+        const form = event.target.closest("form");
+        if (form) form.submit();
+    }
+
+    function handleStatusChange(event) {
+        submitForm(event);
+
+        // Trigger confetti if "Done" is selected
+        if (event.target.value === "Done") {
+            showConfetti = true;
+            setTimeout(() => (showConfetti = false), 3000); // Confetti lasts for 3 seconds
+        }
+    }
 </script>
 
-<main class="p-4">
-    <h1 class="text-2xl font-bold mb-4">Your Chapters</h1>
+<main class="flex flex-col gap-6 p-10">
+    <h1 class="text-2xl font-bold">Choose Subject</h1>
 
-    <div class="flex flex-col gap-4 justify-center items-center">
-        {#each data.chapters as {subject, chapter, status}, index}
-            <div class="rounded-xl">
-                <h2 class="text-xl font-semibold">Chp {index + 1}: {chapter}</h2>
-                <p class="mt-1 font-medium">
-                    Status:
-                    <strong class="{status === 'Done' ? 'text-green-500' : 'text-red-500'}">
-                        {status}
-                    </strong>
-                </p>
+    <!-- Dropdown for subjects -->
+    <select class="select" bind:value={selectedSubject} onchange={filter}>
+        <option value="Maths">Maths</option>
+        <option value="Physics">Physics</option>
+        <option value="Computer">Computer</option>
+        <option value="Biology">Biology</option>
+        <option value="Chemistry">Chemistry</option>
+    </select>
+
+    <div class="flex flex-wrap justify-start items-center gap-5">
+        {#each chapters as {id, subject, chapter, status}, index}
+            <div class="card bg-base-200 border-1 border-accent w-96 card-md shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Chp {index + 1}</h2>
+                    <p>{chapter}</p>
+                    <div class="justify-end card-actions">
+                        <form use:setupForm method="post" action="?/updateStatus" use:enhance>
+                            <input type="hidden" name="chapterId" value={id}/>
+                            <select
+                                    class="select max-w-40 mt-3"
+                                    name="status"
+                                    onchange={handleStatusChange}
+                            >
+                                <option value="Not Done" selected={status === "Not Done"}>Not Done ❌</option>
+                                <option value="Done Before" selected={status === "Done Before"}>Done Before ✅</option>
+                                <option value="Done" selected={status === "Done"}>Done 🎉</option>
+                            </select>
+                            <!-- Confetti -->
+                        </form>
+                    </div>
+                </div>
             </div>
         {:else}
-            <p class="text-gray-500">No chapters available!</p>
+            <p class="opacity-70">No chapters available!</p>
         {/each}
     </div>
 </main>
+{#if showConfetti}
+    <div class="absolute right-20 top-1/2 w-100">
+        <Confetti amount="100"/>
+    </div>
+{/if}

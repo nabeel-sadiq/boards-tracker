@@ -15,3 +15,21 @@ export const load = async (event) => {
         user: user, chapters: chapters,
     }
 }
+
+export const actions = {
+    updateStatus: async ({request}) => {
+        const data = await request.formData();
+        const chapterId = data.get('chapterId');
+        const newStatus = data.get('status');
+
+        if (!chapterId || !newStatus) {
+            return {error: 'Invalid data'};
+        }
+
+        await db.update(Chapters)
+            .set({status: newStatus})
+            .where(eq(Chapters.id, Number(chapterId)));
+
+        return {success: true};
+    }
+};

@@ -6,6 +6,6 @@ export const load = async (event) => {
     }
 
     return {
-        user: user
+        user: event.locals.user
     }
 }
