@@ -21,6 +21,7 @@ export const handle = async ({event, resolve}) => {
     if (user.length > 0) {
         event.locals.user = {
             name: user[0].username,
+            id: user[0].id
         };
     }
 

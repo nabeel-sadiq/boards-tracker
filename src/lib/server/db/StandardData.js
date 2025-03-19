@@ -2,18 +2,21 @@ import {db} from "$lib/server/db";
 import {Chapters} from "$lib/server/db/schema.js";
 
 export default async function insertStandardData(userId) {
-
     for (const subject in ChaptersData) {
-        for (const chapter in subject) {
+        const chapters = ChaptersData[subject]; // Get the chapters for the current subject
+
+        for (const chapterNumber in chapters) {
+            const chapterName = chapters[chapterNumber]; // Get the actual chapter name
 
             await db.insert(Chapters).values({
                 subject: subject,
-                chapter: chapter,
+                chapter: chapterName, // Use the chapter name here
                 userId: userId
             });
         }
     }
 }
+
 
 const ChaptersData = {
     Maths: {

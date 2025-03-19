@@ -39,7 +39,7 @@
             </div>
 
             {#if form?.user}
-                <p class="error">Username is taken.</p>
+                <p class="error">Account already exists! Login <a href="/login">here</a></p>
             {/if}
 
             <button class="btn btn-accent mt-3" type="submit">Create Account</button>
