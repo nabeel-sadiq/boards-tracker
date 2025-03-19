@@ -9,3 +9,10 @@ export const Users = sqliteTable('users', {
     createdAt: text('created_at').default('CURRENT_TIMESTAMP').notNull(),
     updatedAt: text('updated_at').default('CURRENT_TIMESTAMP').notNull(),
 });
+
+export const Chapters = sqliteTable('chapters', {
+    id: integer().primaryKey({autoIncrement: true}),
+    subject: text('subject').notNull(),
+    chapter: text('chapter').notNull(),
+    userId: integer('user_id').references(() => Users.id).notNull(),
+})
