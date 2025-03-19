@@ -14,5 +14,6 @@ export const Chapters = sqliteTable('chapters', {
     id: integer().primaryKey({autoIncrement: true}),
     subject: text('subject').notNull(),
     chapter: text('chapter').notNull(),
+    status: text('status').default("Not Done").notNull(),
     userId: integer('user_id').references(() => Users.id).notNull(),
 })
