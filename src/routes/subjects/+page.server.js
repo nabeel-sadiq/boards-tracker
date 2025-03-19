@@ -30,6 +30,7 @@ export const actions = {
             .set({status: newStatus})
             .where(eq(Chapters.id, Number(chapterId)));
 
+        redirect(302, "/");
         return {success: true};
     }
 };

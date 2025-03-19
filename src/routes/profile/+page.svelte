@@ -2,6 +2,8 @@
     const pfp = "https://beebom.com/wp-content/uploads/2025/01/jinwoo-solo-leveling.jpg"
 
     let {data} = $props();
+
+    let modal = $state();
 </script>
 
 <div class="flex lg:flex-row flex-col justify-center items-center lg:px-0 px-5 lg:py-0 py-20">
@@ -17,13 +19,13 @@
 
         <div id="settings" class="flex flex-col justify-center items-center gap-3 py-3">
             <div class="divider h-1"></div>
-            <form class="flex flex-col gap-4" method="post">
+            <form action="?/updateCore" class="flex flex-col gap-4" method="post">
                 <select class="w-60 p-3" name="core">
                     <option value="medical" selected={data.user.core === "medical"}>Pre-Medical</option>
                     <option value="engineering" selected={data.user.core === "engineering"}>Pre-Engineering</option>
                     <option value="ICS" selected={data.user.core === "ICS"}>ICS - Physics</option>
                 </select>
-                    <button class="btn btn-success" type="submit">Save</button>
+                <button class="btn btn-success" type="submit">Save</button>
             </form>
             <div class="divider h-1"></div>
             <div class="flex justify-between items-center gap-2">
@@ -31,49 +33,22 @@
                     <button type="submit" class="btn btn-error"><i class="fa-solid fa-right-from-bracket"></i>Logout
                     </button>
                 </form>
-                <button class="btn btn-error"><i class="fa-solid fa-trash"></i>Delete Account</button>
-            </div>
-        </div>
 
-    </div>
+                <button onclick={() => {modal.showModal()}} class="btn btn-error"><i class="fa-solid fa-trash"></i>Delete
+                    Account
+                </button>
+                <dialog bind:this={modal} id="my_modal_1" class="modal">
+                    <div class="modal-box">
+                        <h3 class="text-lg font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
+                        <p class="py-4">Are you sure you want to delete your account?<br>All data will be lost and cannot be recovered.</p>
+                        <div class="modal-action">
+                            <form action="?/deleteUser" method="post">
+                                <button type="submit" class="btn btn-error"><i class="fa-solid fa-trash"></i> Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
 
-    <div class="flex justify-center items-center lg:w-2/3">
-        <div class="flex flex-col justify-center lg:mt-0 mt-20 items-start lg:min-h-screen gap-4">
-            <h1 class="lg:text-3xl text-2xl font-bold">Subjects Progression 📈</h1>
-            <!-- Maths Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>Maths</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="90" max="100"></progress>
-            </div>
-
-            <!-- Urdu Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>Urdu</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="80" max="100"></progress>
-            </div>
-
-            <!-- English Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>English</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="95" max="100"></progress>
-            </div>
-
-            <!-- Islamiyat Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>Islamiyat</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="69.69" max="100"></progress>
-            </div>
-
-            <!-- Physics Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>Physics</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="75" max="100"></progress>
-            </div>
-
-            <!-- Computer Science Section -->
-            <div class="flex justify-center items-center gap-3 text-xl">
-                <p>Computer</p>
-                <progress class="progress progress-primary lg:w-100 w-50 h-3" value="90" max="100"></progress>
             </div>
         </div>
     </div>

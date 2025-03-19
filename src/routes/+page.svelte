@@ -1,9 +1,10 @@
 <script>
     import CircleProgress from "$lib/components/CircleProgress.svelte";
-    import TasksDueWeek from "$lib/components/TasksDueWeek.svelte";
     import ModelPaper from "$lib/components/ModelPaper.svelte";
 
-    let circleValue = $state(69);
+    let {data} = $props();
+
+    console.table(data.doneChapters)
 </script>
 
 <div class="flex flex-col justify-center items-center py-10 lg:px-10 px-5">
@@ -11,11 +12,28 @@
         <div class="lg:w-1/2 w-full flex justify-center items-center">
             <div class="relative">
                 <CircleProgress value="base"/>
-                <CircleProgress value={circleValue}/>
+                <CircleProgress value={data.donePercentage}/>
             </div>
         </div>
         <div class="lg:w-1/2 flex justify-start items-start">
-            <TasksDueWeek/>
+            <ul class="list">
+
+                <li class="p-4 pb-2 text-lg opacity-60 tracking-wide"><span class="opacity-100">🎉&nbsp;</span>
+                    Recently Completed
+                </li>
+
+                {#each data.doneChapters.slice(0, 3) as doneChapter}
+                    <li class="list-row text-xl">
+                        <div>
+                            <div>{doneChapter.subject}</div>
+                            <div class="text-xs uppercase font-semibold opacity-60">{doneChapter.chapter}</div>
+                        </div>
+                    </li>
+                {/each}
+
+                <a class="btn btn-secondary m-4" href="/subjects">View All</a>
+
+            </ul>
         </div>
     </div>
 

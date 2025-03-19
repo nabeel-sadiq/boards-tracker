@@ -16,5 +16,5 @@ export const Chapters = sqliteTable('chapters', {
     subject: text('subject').notNull(),
     chapter: text('chapter').notNull(),
     status: text('status').default("Not Done").notNull(),
-    userId: integer('user_id').references(() => Users.id).notNull(),
+    userId: integer('user_id').references(() => Users.id, {onDelete: "cascade"}).notNull(),
 })
