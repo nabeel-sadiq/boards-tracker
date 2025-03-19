@@ -48,9 +48,8 @@
 
             <button class="btn btn-accent mt-3" type="submit">Log in</button>
         </form>
-        <div class="max-w-xs text-balance px-2">
+        <div class="max-w-xs text-center px-2">
             <h1>Don't have an account? Create one <a href="/register" class="text-accent">here</a></h1>
-
         </div>
     </div>
 </div>

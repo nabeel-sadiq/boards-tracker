@@ -5,7 +5,7 @@ import {eq} from "drizzle-orm";
 
 export const load = async (event) => {
     if (!event.locals.user) {
-        redirect(302, "/login");
+        redirect(302, "/register");
     }
 
     return {

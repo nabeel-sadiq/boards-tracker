@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
-@plugin "daisyui";
+@plugin "daisyui" {
+
+    themes: dark --default;
+
+}
 
 * {
     font-family: "Bricolage Grotesque", sans-serif;

@@ -50,9 +50,8 @@
 
             <button class="btn btn-accent mt-3" type="submit">Create Account</button>
         </form>
-        <div class="max-w-xs text-balance px-2">
+        <div class="max-w-xs text-center px-2">
             <h1>Already have an account? Login <a href="/login" class="text-accent">here</a></h1>
-
         </div>
     </div>
 </div>

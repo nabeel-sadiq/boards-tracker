@@ -1,12 +1,8 @@
 <script>
-    // import {circlePercentage} from "../state.svelte.js";
+    import {circlePercentage} from "../state.svelte.js";
 
     let pfp = $state("https://beebom.com/wp-content/uploads/2025/01/Sung-Jinwoo-when-he-was-an-E-Rank.jpg?w=1024&quality=75");
     let rank = $state("E");
-
-    let circlePercentage = {
-        value: 99,
-    }
 
     if (circlePercentage.value < 20) {
         rank = "E";

@@ -5,7 +5,7 @@ import {and, eq, inArray, desc} from "drizzle-orm";
 
 export const load = async (event) => {
     if (!event.locals.user) {
-        redirect(302, "/login");
+        redirect(302, "/register");
     }
 
     // Subject groups with updated chapter counts

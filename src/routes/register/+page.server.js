@@ -9,7 +9,7 @@ export const load = async () => {
     // todo
 };
 
-const register = async ({request}) => {
+const register = async ({request, cookies}) => {
     const data = await request.formData();
     const username = data.get('username');
     const password = data.get('password');
@@ -43,7 +43,22 @@ const register = async ({request}) => {
 
     insertStandardData(newUser.id)
 
-    throw redirect(303, '/login');
+    const newAuthToken = crypto.randomUUID();
+
+    await db
+        .update(Users)
+        .set({userAuthToken: newAuthToken})
+        .where(eq(Users.username, username));
+
+    cookies.set('session', newAuthToken, {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'strict',
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 60 * 60 * 24 * 60,
+    });
+
+    throw redirect(303, '/');
 };
 
 export const actions = {register};

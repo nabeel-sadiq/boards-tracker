@@ -3,7 +3,7 @@
 </script>
 
 {#if props.value == 0}
-    <div class="radial-progress text-neutral absolute inset-0"
+    <div class="radial-progress text-neutral"
          style={`--value:100; --size:20rem; --thickness: 2rem;`}
          aria-valuenow="20"
          role="progressbar"
