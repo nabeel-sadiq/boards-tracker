@@ -1,28 +1,34 @@
 <script>
-    import {circlePercentage} from "../state.svelte.js";
+    // import {circlePercentage} from "../state.svelte.js";
 
     let pfp = $state("https://beebom.com/wp-content/uploads/2025/01/Sung-Jinwoo-when-he-was-an-E-Rank.jpg?w=1024&quality=75");
     let rank = $state("E");
 
-    if (circlePercentage.value <= 20) {
+    let circlePercentage = {
+        value: 99,
+    }
+
+    if (circlePercentage.value < 20) {
         rank = "E";
         pfp = "https://beebom.com/wp-content/uploads/2025/01/Sung-Jinwoo-when-he-was-an-E-Rank.jpg?w=1024&quality=75"
-    } else if (circlePercentage.value <= 40) {
+    } else if (circlePercentage.value < 40) {
         rank = "D";
-        pfp = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzfrEjrPY_TnMlfgNLg0-J8t5fb5Dnq4Ytug&s"
-    } else if (circlePercentage.value <= 60) {
-        rank = "C";
         pfp = "https://avatarfiles.alphacoders.com/375/thumb-1920-375666.jpeg"
-    } else if (circlePercentage.value <= 80) {
+    } else if (circlePercentage.value < 60) {
+        rank = "C";
+        pfp = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzfrEjrPY_TnMlfgNLg0-J8t5fb5Dnq4Ytug&s"
+    } else if (circlePercentage.value < 80) {
         rank = "B";
         pfp = "https://beebom.com/wp-content/uploads/2025/01/jinwoo-solo-leveling.jpg?w=1250&quality=75"
     } else if (circlePercentage.value <= 90) {
         rank = "A";
         pfp = "https://staticg.sportskeeda.com/editor/2024/01/a0d04-17063341419867-1920.jpg"
-    } else if (circlePercentage.value <= 99) {
+    } else if (circlePercentage.value < 99) {
         rank = "S";
+        pfp = "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/01/jinwoo-sits-on-throne-solo-leveling-season-2-arise-from-the-shadow-ed.jpg"
     } else {
-        rank = "Jinwoo";
+        rank = "Jinha";
+        pfp = "https://cdn.rafled.com/anime-icons/images/TcX4zEbyGJiwUzSSYHq4yJRtlg0dda5Y.jpg"
     }
 
     let {data} = $props();
@@ -63,10 +69,12 @@
                 <dialog bind:this={modal} id="my_modal_1" class="modal">
                     <div class="modal-box">
                         <h3 class="text-lg font-bold"><i class="fa-solid fa-triangle-exclamation"></i> Danger Zone</h3>
-                        <p class="py-4">Are you sure you want to delete your account?<br>All data will be lost and cannot be recovered.</p>
+                        <p class="py-4">Are you sure you want to delete your account?<br>All data will be lost and
+                            cannot be recovered.</p>
                         <div class="modal-action">
                             <form action="?/deleteUser" method="post">
-                                <button type="submit" class="btn btn-error"><i class="fa-solid fa-trash"></i> Delete</button>
+                                <button type="submit" class="btn btn-error"><i class="fa-solid fa-trash"></i> Delete
+                                </button>
                             </form>
                         </div>
                     </div>
